@@ -1,0 +1,2 @@
+class WorkSessionsController < ApplicationController
+end
