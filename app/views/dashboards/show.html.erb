@@ -1,22 +1,26 @@
-<div>
+<div data-controller="timer">
   <h2>Dashboard</h2>
   <div>
     <%= link_to "ホーム" %>
     <%= link_to "設定" %>
   </div>
-  <div>
-    <span id="time">00:00:00</span>
-  </div>
-  <div class="timer-actions">
-    <button id="start">開始</button>
-    <button id="stop">停止</button>
-    <button id="end">終了</button>
+  <div data-controller="timer">
+    <span data-timer-target="time">00:00:00</span>
+
+    <%= form_with url: work_sessions_path do |f| %>
+      <%= f.text_field :title %>
+      <%= f.hidden_field :started_at, data: { timer_target: "startedAt" } %>
+      <%= f.hidden_field :duration_seconds, data: { timer_target: "duration" } %>
+      <button type="button" data-action="timer#start" data-timer-target="start">開始</button>
+      <button type="button" data-action="timer#pause" data-timer-target="pause" disabled>一時停止</button>
+      <button type="button" data-action="timer#end" data-timer-target="end" disabled>終了</button>
+    <% end %>
   </div>
   <div>
     <p>カテゴリー</p>
   </div>
   <div class="today-stats">
-    <p class="label">今日の作業時間</p>
+    <h2>今日の作業時間</h2>
     <p class="value">02:15:00</p>
     <p>作業履歴</p>
   </div>
