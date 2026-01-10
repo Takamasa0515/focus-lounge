@@ -1,13 +1,13 @@
 const time = document.getElementById('time');
 const startButton = document.getElementById('start');
 const stopButton = document.getElementById('stop');
-const resetButton = document.getElementById('reset');
+const endButton = document.getElementById('end');
 
 // 開始時間
 let startTime;
-// 停止時間
+// 停止時間（これまでの経過時間）
 let stopTime = 0;
-// タイムアウトID
+// タイマーID
 let timeoutID;
 
 // 時間を表示する関数
@@ -26,29 +26,34 @@ function displayTime() {
     timeoutID = setTimeout(displayTime, 1000);
 }
 
-// スタートボタンがクリックされたら時間を進める
+// ▶ start：計測開始
 startButton.addEventListener('click', () => {
     startButton.disabled = true;
     stopButton.disabled = false;
-    resetButton.disabled = true;
+    endButton.disabled = false;
+
     startTime = Date.now();
     displayTime();
 });
 
-// ストップボタンがクリックされたら時間を止める
-stopButton.addEventListener('click', function () {
+// ⏸ stop：一時停止
+stopButton.addEventListener('click', () => {
     startButton.disabled = false;
     stopButton.disabled = true;
-    resetButton.disabled = false;
+    endButton.disabled = false;
+
     clearTimeout(timeoutID);
     stopTime += (Date.now() - startTime);
 });
 
-// リセットボタンがクリックされたら時間を0に戻す
-resetButton.addEventListener('click', function () {
+// ⏹ end：終了（リセット）
+endButton.addEventListener('click', () => {
+    clearTimeout(timeoutID);
+
     startButton.disabled = false;
     stopButton.disabled = true;
-    resetButton.disabled = true;
-    time.textContent = '00:00:00';
+    endButton.disabled = true;
+
     stopTime = 0;
+    time.textContent = '00:00:00';
 });
