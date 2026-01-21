@@ -49,9 +49,13 @@ export default class extends Controller {
   end() {
     clearTimeout(this.timerId)
 
+    if (this.startTime) {
+      this.elapsed += Date.now() - this.startTime
+    }
+
     const totalSeconds = Math.floor(this.elapsed / 1000)
     this.durationTarget.value = totalSeconds
-    console.log(this.durationTarget.value)
+
     // フォーム送信（Turbo）
     this.element.querySelector("form").requestSubmit()
 

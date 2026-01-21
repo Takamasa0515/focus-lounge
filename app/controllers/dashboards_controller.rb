@@ -1,6 +1,5 @@
 class DashboardsController < ApplicationController
   def show
-    @current_session = nil
-    @recent_sessions = []
+    @today_total_seconds = current_user.work_sessions.today.sum(:duration_seconds)
   end
 end
