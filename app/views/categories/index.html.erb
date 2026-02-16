@@ -1,0 +1,30 @@
+<h2>カテゴリー管理</h2>
+<%= form_with model: @category do |f| %>
+  <%= f.label :name %><br>
+  <%= f.text_field :name %><br>
+  <%= f.label :color_code %><br>
+  <%= f.color_field :color_code %><br>
+  <%= f.submit %>
+<% end %>
+<table>
+  <thead>
+    <tr>
+      <th>カテゴリー名</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>未分類</td>
+    </tr>
+    <% @categories.each do |category| %>
+    <tr>
+      <% unless category.name == "未分類" %>
+        <td><%= category.name %></td>
+        <td><%= link_to "編集", categories_path(id: category.id) %></td>
+        <td><%= link_to "削除", category, data: { turbo_method: :delete, turbo_confirm: "削除しますか？" } %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
