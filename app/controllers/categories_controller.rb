@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
+  before_action :set_user
   def index
-    @categories = Category.all
+    @categories = Category.where(user_id: @user.id)
 
     if params[:id].present?
       @category = Category.find(params[:id])
@@ -11,6 +12,7 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new(category_params)
+    @category.user_id = @user.id
     if @category.save
       redirect_to  categories_path, notice: "カテゴリーを作成しました"
     else
@@ -21,6 +23,7 @@ class CategoriesController < ApplicationController
 
   def update
     @category = Category.find(params[:id])
+    @category.user_id = @user.id
     if @category.update(category_params)
       redirect_to request.referer, notice: "カテゴリーを更新しました"
     else
@@ -31,11 +34,18 @@ class CategoriesController < ApplicationController
 
   def destroy
     @category = Category.find(params[:id])
-    @category.destroy
-    redirect_to categories_path, notice: "カテゴリーを削除しました。"
+    if @category.destroy
+      redirect_to categories_path, notice: "カテゴリーを削除しました。"
+    else
+      redirect_to categories_path, alert: @category.errors.full_messages.to_sentence
+    end
   end
 
   private
+
+  def set_user
+    @user = current_user
+  end
 
   def category_params
     params.require(:category).permit(:name, :color_code)

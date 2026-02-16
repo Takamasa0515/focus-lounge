@@ -19,7 +19,7 @@
     </tr>
     <% @categories.each do |category| %>
     <tr>
-      <% unless category.name == "未分類" %>
+      <% unless category.system? %>
         <td><%= category.name %></td>
         <td><%= link_to "編集", categories_path(id: category.id) %></td>
         <td><%= link_to "削除", category, data: { turbo_method: :delete, turbo_confirm: "削除しますか？" } %></td>
