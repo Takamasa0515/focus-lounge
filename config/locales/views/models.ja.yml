@@ -1,0 +1,13 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      category: カテゴリー
+      work_session: 作業時間
+    attributes:
+      category:
+        name: カテゴリー名
+        color_code: カテゴリーカラー
+  attributes:
+    created_at: 作成日
+    updated_at: 更新日
