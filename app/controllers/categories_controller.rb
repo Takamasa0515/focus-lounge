@@ -2,7 +2,6 @@ class CategoriesController < ApplicationController
   before_action :set_user
   def index
     @categories = Category.where(user_id: @user.id)
-
     if params[:id].present?
       @category = Category.find(params[:id])
     else
