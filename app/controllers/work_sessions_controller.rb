@@ -10,4 +10,12 @@ class WorkSessionsController < ApplicationController
     )
     redirect_to dashboards_show_path
   end
+  def destroy
+    @work_session = WorkSession.find(params[:id])
+    if @work_session.destroy
+      redirect_to dashboards_show_path, notice: "作業履歴を削除しました。"
+    else
+      redirect_to dashboards_show_path, alert: @work_session.errors.full_messages.to_sentence
+    end
+  end
 end

@@ -20,5 +20,12 @@
   <div class="today-stats">
     <h2>今日の作業時間</h2>
     <div><%= format_seconds(@today_total_seconds) %></div>
+    <% @today_work_sessions.each do |work_session| %>
+      <%= work_session.title %>
+      <%= work_session.category.name %>
+      <%= format_seconds(work_session.duration_seconds) %>
+      <%= link_to "編集" %>
+      <%= link_to "削除", work_session, data: { turbo_method: :delete, turbo_confirm: "削除しますか？" } %>
+    <% end %>
   </div>
 </div>
