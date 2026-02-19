@@ -1,3 +1,4 @@
+<%= turbo_page_requires_reload %>
 <div data-controller="timer">
   <h2>Dashboard</h2>
   <div>
@@ -24,8 +25,9 @@
       <%= work_session.title %>
       <%= work_session.category.name %>
       <%= format_seconds(work_session.duration_seconds) %>
-      <%= link_to "編集" %>
+      <%= link_to "編集", edit_work_session_path(work_session), data: { turbo_frame: "modal" } %>
       <%= link_to "削除", work_session, data: { turbo_method: :delete, turbo_confirm: "削除しますか？" } %>
     <% end %>
   </div>
 </div>
+
