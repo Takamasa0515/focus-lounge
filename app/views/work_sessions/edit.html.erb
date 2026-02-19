@@ -1,0 +1,10 @@
+<%= turbo_frame_tag "modal" do %>
+  <div class="hidden">
+    <%= form_with model: @work_session do |f| %>
+      <%= f.text_field :title %>
+      <%= f.collection_select :category_id, @categories, :id, :name %>
+      <%= f.submit "更新" %>
+    <% end %>
+    <%= link_to "キャンセル", "#", data: { controller: "modals", action: "modals#click->close" } %>
+  </div>
+<% end %>
