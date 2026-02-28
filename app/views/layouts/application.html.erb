@@ -11,6 +11,14 @@
   </head>
 
   <body>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <%= turbo_frame_tag "modal" %>
+    <% if user_signed_in? %>
+      <%= render "layouts/login_user_header" %>
+    <% else %>
+      <%= render "layouts/no_login_user_header" %>
+    <% end %>
     <%= yield %>
   </body>
 </html>

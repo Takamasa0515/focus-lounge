@@ -1,0 +1,3 @@
+<div> <%= link_to 'マイページ', "/users/#{current_user.user_name}" %> </div>
+<div> <%= link_to 'ダッシュボード', "/dashboards/show" %> </div>
+<div> <%= link_to "ログアウト", destroy_user_session_path, method: :delete %> </div>
